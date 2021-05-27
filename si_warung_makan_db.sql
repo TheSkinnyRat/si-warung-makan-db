@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 27, 2021 at 01:00 AM
+-- Generation Time: May 27, 2021 at 03:57 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -117,8 +117,9 @@ CREATE TABLE `status_list` (
 
 CREATE TABLE `user` (
   `id_user` int(10) UNSIGNED NOT NULL,
-  `nama` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `username` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nama` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `level` int(1) UNSIGNED NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

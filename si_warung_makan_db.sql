@@ -2,9 +2,9 @@
 -- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: May 27, 2021 at 03:57 PM
--- Server version: 10.4.18-MariaDB
+-- Host: localhost:3306
+-- Generation Time: May 28, 2021 at 06:19 AM
+-- Server version: 5.7.24
 -- PHP Version: 8.0.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -18,21 +18,8 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `si_warung_makan_temp`
+-- Database: `rpl`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `bayar`
---
-
-CREATE TABLE `bayar` (
-  `id_pembayaran` int(10) UNSIGNED NOT NULL,
-  `id_pemesanan` int(10) UNSIGNED NOT NULL,
-  `total_bayar` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tgl_pembayaran` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -50,10 +37,10 @@ CREATE TABLE `detail_pemesanan` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kategori_list`
+-- Table structure for table `kategori_menu`
 --
 
-CREATE TABLE `kategori_list` (
+CREATE TABLE `kategori_menu` (
   `id_kategori` int(10) UNSIGNED NOT NULL,
   `kategori` text COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -67,7 +54,7 @@ CREATE TABLE `kategori_list` (
 CREATE TABLE `menu_list` (
   `id_menu` int(10) UNSIGNED NOT NULL,
   `menu` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `deskripsi` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `deskripsi` text COLLATE utf8mb4_unicode_ci,
   `harga` int(11) NOT NULL,
   `id_kategori` int(10) UNSIGNED NOT NULL,
   `status` int(1) UNSIGNED NOT NULL
@@ -88,13 +75,26 @@ CREATE TABLE `pelanggan` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `pembayaran`
+--
+
+CREATE TABLE `pembayaran` (
+  `id_pembayaran` int(10) UNSIGNED NOT NULL,
+  `id_pemesanan` int(10) UNSIGNED NOT NULL,
+  `total_bayar` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tgl_pembayaran` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `pemesanan`
 --
 
 CREATE TABLE `pemesanan` (
   `id_pemesanan` int(10) UNSIGNED NOT NULL,
   `id_pelanggan` int(10) UNSIGNED NOT NULL,
-  `tgl_pemesanan` timestamp NOT NULL DEFAULT current_timestamp(),
+  `tgl_pemesanan` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `id_status` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -121,19 +121,12 @@ CREATE TABLE `user` (
   `password` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nama` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `level` int(1) UNSIGNED NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `bayar`
---
-ALTER TABLE `bayar`
-  ADD PRIMARY KEY (`id_pembayaran`),
-  ADD KEY `warung_bayar_id_pemesanan_foreign` (`id_pemesanan`);
 
 --
 -- Indexes for table `detail_pemesanan`
@@ -144,9 +137,9 @@ ALTER TABLE `detail_pemesanan`
   ADD KEY `warung_detail_pemesanan_id_menu_foreign` (`id_menu`);
 
 --
--- Indexes for table `kategori_list`
+-- Indexes for table `kategori_menu`
 --
-ALTER TABLE `kategori_list`
+ALTER TABLE `kategori_menu`
   ADD PRIMARY KEY (`id_kategori`);
 
 --
@@ -161,6 +154,13 @@ ALTER TABLE `menu_list`
 --
 ALTER TABLE `pelanggan`
   ADD PRIMARY KEY (`id_pelanggan`);
+
+--
+-- Indexes for table `pembayaran`
+--
+ALTER TABLE `pembayaran`
+  ADD PRIMARY KEY (`id_pembayaran`),
+  ADD KEY `warung_bayar_id_pemesanan_foreign` (`id_pemesanan`);
 
 --
 -- Indexes for table `pemesanan`
@@ -187,21 +187,15 @@ ALTER TABLE `user`
 --
 
 --
--- AUTO_INCREMENT for table `bayar`
---
-ALTER TABLE `bayar`
-  MODIFY `id_pembayaran` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `detail_pemesanan`
 --
 ALTER TABLE `detail_pemesanan`
   MODIFY `id_pemesanan_detail` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `kategori_list`
+-- AUTO_INCREMENT for table `kategori_menu`
 --
-ALTER TABLE `kategori_list`
+ALTER TABLE `kategori_menu`
   MODIFY `id_kategori` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -215,6 +209,12 @@ ALTER TABLE `menu_list`
 --
 ALTER TABLE `pelanggan`
   MODIFY `id_pelanggan` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `pembayaran`
+--
+ALTER TABLE `pembayaran`
+  MODIFY `id_pembayaran` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `pemesanan`
@@ -239,12 +239,6 @@ ALTER TABLE `user`
 --
 
 --
--- Constraints for table `bayar`
---
-ALTER TABLE `bayar`
-  ADD CONSTRAINT `warung_bayar_id_pemesanan_foreign` FOREIGN KEY (`id_pemesanan`) REFERENCES `pemesanan` (`id_pemesanan`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Constraints for table `detail_pemesanan`
 --
 ALTER TABLE `detail_pemesanan`
@@ -255,7 +249,13 @@ ALTER TABLE `detail_pemesanan`
 -- Constraints for table `menu_list`
 --
 ALTER TABLE `menu_list`
-  ADD CONSTRAINT `warung_menu_list_id_kategori_foreign` FOREIGN KEY (`id_kategori`) REFERENCES `kategori_list` (`id_kategori`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `warung_menu_list_id_kategori_foreign` FOREIGN KEY (`id_kategori`) REFERENCES `kategori_menu` (`id_kategori`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `pembayaran`
+--
+ALTER TABLE `pembayaran`
+  ADD CONSTRAINT `warung_bayar_id_pemesanan_foreign` FOREIGN KEY (`id_pemesanan`) REFERENCES `pemesanan` (`id_pemesanan`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `pemesanan`

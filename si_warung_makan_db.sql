@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 29, 2021 at 05:01 PM
+-- Generation Time: May 30, 2021 at 01:29 AM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -57,6 +57,7 @@ CREATE TABLE `menu_list` (
   `deskripsi` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `harga` int(11) NOT NULL,
   `id_kategori` int(10) UNSIGNED NOT NULL,
+  `img` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` int(1) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 

@@ -2,9 +2,9 @@
 -- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: May 28, 2021 at 06:19 AM
--- Server version: 5.7.24
+-- Host: 127.0.0.1
+-- Generation Time: May 29, 2021 at 05:01 PM
+-- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `rpl`
+-- Database: `si_warung_makan_temp`
 --
 
 -- --------------------------------------------------------
@@ -54,7 +54,7 @@ CREATE TABLE `kategori_menu` (
 CREATE TABLE `menu_list` (
   `id_menu` int(10) UNSIGNED NOT NULL,
   `menu` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `deskripsi` text COLLATE utf8mb4_unicode_ci,
+  `deskripsi` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `harga` int(11) NOT NULL,
   `id_kategori` int(10) UNSIGNED NOT NULL,
   `status` int(1) UNSIGNED NOT NULL
@@ -82,7 +82,7 @@ CREATE TABLE `pembayaran` (
   `id_pembayaran` int(10) UNSIGNED NOT NULL,
   `id_pemesanan` int(10) UNSIGNED NOT NULL,
   `total_bayar` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tgl_pembayaran` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `tgl_pembayaran` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -94,7 +94,7 @@ CREATE TABLE `pembayaran` (
 CREATE TABLE `pemesanan` (
   `id_pemesanan` int(10) UNSIGNED NOT NULL,
   `id_pelanggan` int(10) UNSIGNED NOT NULL,
-  `tgl_pemesanan` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `tgl_pemesanan` timestamp NOT NULL DEFAULT current_timestamp(),
   `id_status` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -121,7 +121,8 @@ CREATE TABLE `user` (
   `password` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nama` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `level` int(1) UNSIGNED NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --

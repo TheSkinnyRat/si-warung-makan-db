@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 30, 2021 at 02:04 AM
+-- Generation Time: Jun 02, 2021 at 03:56 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -127,6 +127,13 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id_user`, `username`, `password`, `nama`, `level`, `created_at`, `updated_at`) VALUES
+(1, 'superadmin', '$2y$12$gwgOpMdE8iEjlKrVoSUA5OUTgJif9zjfK7R8.i9/4rkUJSCfmnmdy', 'Super Admin', 0, '2021-06-02 13:54:31', '2021-06-02 13:54:31');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -234,7 +241,7 @@ ALTER TABLE `status_list`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_user` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables

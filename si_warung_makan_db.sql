@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 02, 2021 at 03:56 PM
+-- Generation Time: Jun 04, 2021 at 09:22 AM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -251,8 +251,8 @@ ALTER TABLE `user`
 -- Constraints for table `detail_pemesanan`
 --
 ALTER TABLE `detail_pemesanan`
-  ADD CONSTRAINT `warung_detail_pemesanan_id_menu_foreign` FOREIGN KEY (`id_menu`) REFERENCES `menu_list` (`id_menu`),
-  ADD CONSTRAINT `warung_detail_pemesanan_id_pemesanan_foreign` FOREIGN KEY (`id_pemesanan`) REFERENCES `pemesanan` (`id_pemesanan`);
+  ADD CONSTRAINT `warung_detail_pemesanan_id_menu_foreign` FOREIGN KEY (`id_menu`) REFERENCES `menu_list` (`id_menu`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `warung_detail_pemesanan_id_pemesanan_foreign` FOREIGN KEY (`id_pemesanan`) REFERENCES `pemesanan` (`id_pemesanan`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `menu_list`
@@ -270,8 +270,8 @@ ALTER TABLE `pembayaran`
 -- Constraints for table `pemesanan`
 --
 ALTER TABLE `pemesanan`
-  ADD CONSTRAINT `warung_pemesanan_id_pelanggan_foreign` FOREIGN KEY (`id_pelanggan`) REFERENCES `pelanggan` (`id_pelanggan`),
-  ADD CONSTRAINT `warung_pemesanan_id_status_foreign` FOREIGN KEY (`id_status`) REFERENCES `status_list` (`id_status`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `warung_pemesanan_id_pelanggan_foreign` FOREIGN KEY (`id_pelanggan`) REFERENCES `pelanggan` (`id_pelanggan`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `warung_pemesanan_id_status_foreign` FOREIGN KEY (`id_status`) REFERENCES `status_list` (`id_status`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

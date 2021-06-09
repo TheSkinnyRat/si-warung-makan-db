@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 04, 2021 at 09:22 AM
+-- Generation Time: Jun 09, 2021 at 11:42 AM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -109,6 +109,19 @@ CREATE TABLE `status_list` (
   `id_status` int(10) UNSIGNED NOT NULL,
   `status` text COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `status_list`
+--
+
+INSERT INTO `status_list` (`id_status`, `status`) VALUES
+(1, 'Dibuat'),
+(2, 'Dipesan'),
+(3, 'Menunggu Pembayaran'),
+(4, 'Menunggu Antrian'),
+(5, 'Diproses'),
+(6, 'Selesai'),
+(7, 'Dibatalkan');
 
 -- --------------------------------------------------------
 
@@ -235,7 +248,7 @@ ALTER TABLE `pemesanan`
 -- AUTO_INCREMENT for table `status_list`
 --
 ALTER TABLE `status_list`
-  MODIFY `id_status` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_status` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `user`
